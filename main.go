@@ -12,6 +12,7 @@ import (
 	"github.com/miafate/twigo/bd"
 	"github.com/miafate/twigo/configuration"
 	"github.com/miafate/twigo/models"
+	"github.com/miafate/twigo/router"
 )
 
 func main() {
@@ -25,11 +26,15 @@ func main() {
 	configuration.Ctx = context.WithValue(configuration.Ctx, models.Key("site_title"), os.Getenv("SITE_TITLE"))
 
 	fmt.Println("Site title: " + os.Getenv("SITE_TITLE"))
+
 	// checkeo conexión a la base de datos
 	err := bd.Connect(configuration.Ctx)
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
+	r := router.SetupRouter(configuration.Ctx)
 
+	// Listen and Server in 0.0.0.0:8080
+	r.Run()
 }
