@@ -13,9 +13,9 @@ var MongoCN *mongo.Client
 var DatabaseName string
 
 func Connect(ctx context.Context) error {
-	user := ctx.Value(models.Key("user")).(string)
-	password := ctx.Value(models.Key("password")).(string)
-	host := ctx.Value(models.Key("host")).(string)
+	user := ctx.Value(models.Key("db_user")).(string)
+	password := ctx.Value(models.Key("db_password")).(string)
+	host := ctx.Value(models.Key("db_host")).(string)
 	connStr := fmt.Sprintf("mongodb+srv://%s:%s@%s/?retryWrites=true&w=majority", user, password, host)
 
 	var clientOptions = options.Client().ApplyURI(connStr)
@@ -31,9 +31,9 @@ func Connect(ctx context.Context) error {
 		return err
 	}
 
+	fmt.Println("Conexión exitosa a la base de datos")
 	MongoCN = client
-
-	DatabaseName = ctx.Value(models.Key("database")).(string)
+	DatabaseName = ctx.Value(models.Key("db_name")).(string)
 	return nil
 
 }
