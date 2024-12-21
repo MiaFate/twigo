@@ -23,8 +23,11 @@ func main() {
 	configuration.Ctx = context.WithValue(configuration.Ctx, models.Key("db_password"), os.Getenv("DB_PASSWORD"))
 	configuration.Ctx = context.WithValue(configuration.Ctx, models.Key("db_name"), os.Getenv("DB_NAME"))
 	configuration.Ctx = context.WithValue(configuration.Ctx, models.Key("site_title"), os.Getenv("SITE_TITLE"))
+	configuration.Ctx = context.WithValue(configuration.Ctx, models.Key("jwtsign"), os.Getenv("JWTSIGN"))
 
 	fmt.Println("Site title: " + os.Getenv("SITE_TITLE"))
+	//router := gin.Default()
+
 	// checkeo conexión a la base de datos
 	err := bd.Connect(configuration.Ctx)
 	if err != nil {
