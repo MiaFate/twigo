@@ -60,6 +60,11 @@ func SetupRouter() *gin.Engine {
 		c.PureJSON(resp.Status, resp.Data)
 	})
 
+	r.DELETE("/post", func(c *gin.Context) {
+		resp := handlers.DeletePost(c, c.MustGet("claim").(*models.Claim))
+		c.PureJSON(resp.Status, resp.Message)
+	})
+
 	// Get user value
 	// r.GET("/user/:name", func(c *gin.Context) {
 	// 	user := c.Params.ByName("name")
