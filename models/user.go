@@ -6,7 +6,7 @@ type Usuario struct {
 	Id              primitive.ObjectID `bson:"_id,omitempty" json:"id"`
 	Nombre          string             `bson:"nombre" json:"nombre,omitempty"`
 	Apellidos       string             `bson:"apellidos" json:"apellidos,omitempty"`
-	FechaNacimiento string             `bson:"FechaNacimiento" json:"FechaNacimiento,omitempty"`
+	FechaNacimiento string             `bson:"fecha_nacimiento" json:"fecha_nacimiento,omitempty"`
 	Email           string             `bson:"email" json:"email"`
 	Password        string             `bson:"password" json:"password,omitempty"`
 	Avatar          string             `bson:"avatar" json:"avatar,omitempty"`

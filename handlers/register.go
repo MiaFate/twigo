@@ -16,7 +16,6 @@ func Register(ctx *gin.Context) models.ApiResponse[models.Usuario] {
 	r.Status = 400
 	fmt.Println("Entre a Registro")
 
-	// body := ctx.Value(models.Key("body")).(string)
 	body, _ := io.ReadAll(ctx.Request.Body)
 	err := json.Unmarshal([]byte(body), &t)
 	if err != nil {

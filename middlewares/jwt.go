@@ -17,7 +17,7 @@ func JwtMiddleware() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		_, isOk, msg, err := jwt.ProcesoToken(tokenString, os.Getenv("JWTSIGN"))
+		claim, isOk, msg, err := jwt.ProcesoToken(tokenString, os.Getenv("JWTSIGN"))
 		if !isOk {
 			if err != nil {
 				c.JSON(401, gin.H{
@@ -32,6 +32,7 @@ func JwtMiddleware() gin.HandlerFunc {
 				c.Abort()
 			}
 		}
+		c.Set("claim", claim)
 		c.Next()
 	}
 }

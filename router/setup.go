@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/miafate/twigo/handlers"
 	"github.com/miafate/twigo/middlewares"
+	"github.com/miafate/twigo/models"
 )
 
 func SetupRouter() *gin.Engine {
@@ -42,6 +43,11 @@ func SetupRouter() *gin.Engine {
 	r.GET("/users", func(c *gin.Context) {
 		resp := handlers.GetUsers(c)
 		c.PureJSON(http.StatusOK, resp.Data)
+	})
+
+	r.PUT("/user/:id", func(c *gin.Context) {
+		resp := handlers.UpdateUser(c, c.MustGet("claim").(*models.Claim))
+		c.PureJSON(resp.Status, resp.Message)
 	})
 
 	// Get user value
