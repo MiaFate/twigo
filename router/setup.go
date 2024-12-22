@@ -22,11 +22,6 @@ func SetupRouter() *gin.Engine {
 		c.String(http.StatusOK, "ok")
 	})
 
-	r.GET("/users", func(c *gin.Context) {
-		resp := handlers.GetUsers(c)
-		c.PureJSON(http.StatusOK, resp.Data)
-	})
-
 	r.POST("/register", func(c *gin.Context) {
 		resp := handlers.Register(c)
 
@@ -42,6 +37,11 @@ func SetupRouter() *gin.Engine {
 	r.GET("/profile", func(c *gin.Context) {
 		resp := handlers.GetProfile(c)
 		c.PureJSON(resp.Status, resp.Data)
+	})
+
+	r.GET("/users", func(c *gin.Context) {
+		resp := handlers.GetUsers(c)
+		c.PureJSON(http.StatusOK, resp.Data)
 	})
 
 	// Get user value
