@@ -18,6 +18,11 @@ func SetupRouter(ctx context.Context) *gin.Engine {
 		c.String(http.StatusOK, "pong")
 	})
 
+	r.GET("/users", func(c *gin.Context) {
+		resp := handlers.GetUsers(c)
+		c.JSON(http.StatusOK, resp)
+	})
+
 	r.POST("/register", func(c *gin.Context) {
 		resp := handlers.Register(c)
 
