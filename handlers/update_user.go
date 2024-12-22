@@ -22,7 +22,7 @@ func UpdateUser(ctx *gin.Context, claim *models.Claim) models.ApiResponse[models
 		return r
 	}
 
-	status, err := bd.UpdateUser(t, claim.Id.Hex())
+	perfil, status, err := bd.UpdateUser(t, claim.Id.Hex())
 	if err != nil {
 		r.Message = "Error al actualizar el usuario " + err.Error()
 		return r
@@ -35,6 +35,7 @@ func UpdateUser(ctx *gin.Context, claim *models.Claim) models.ApiResponse[models
 
 	r.Status = 200
 	r.Message = "Usuario actualizado correctamente"
+	r.Data = perfil
 
 	return r
 }

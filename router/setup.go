@@ -47,7 +47,7 @@ func SetupRouter() *gin.Engine {
 
 	r.PUT("/user/:id", func(c *gin.Context) {
 		resp := handlers.UpdateUser(c, c.MustGet("claim").(*models.Claim))
-		c.PureJSON(resp.Status, resp.Message)
+		c.PureJSON(resp.Status, resp)
 	})
 
 	// Get user value

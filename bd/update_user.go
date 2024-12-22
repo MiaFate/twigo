@@ -6,9 +6,10 @@ import (
 	"github.com/miafate/twigo/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func UpdateUser(u models.Usuario, id string) (bool, error) {
+func UpdateUser(u models.Usuario, id string) (models.Usuario, bool, error) {
 
 	db := MongoCN.Database(DatabaseName)
 	col := db.Collection("users")
@@ -53,13 +54,13 @@ func UpdateUser(u models.Usuario, id string) (bool, error) {
 		"$set": registro,
 	}
 	filter := bson.M{"_id": bson.M{"$eq": objID}}
-
+	opts := options.FindOneAndUpdate().SetReturnDocument(options.After)
 	var resultado models.Usuario
-	err := col.FindOneAndUpdate(context.TODO(), filter, updtString).Decode(&resultado)
+	err := col.FindOneAndUpdate(context.TODO(), filter, updtString, opts).Decode(&resultado)
 	//_, err := col.UpdateOne(context.TODO(), filter, updtString)
 	if err != nil {
-		return false, err
+		return resultado, false, err
 	}
 
-	return true, nil
+	return resultado, true, nil
 }
