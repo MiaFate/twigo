@@ -18,6 +18,10 @@ func SetupRouter(ctx context.Context) *gin.Engine {
 		c.String(http.StatusOK, "pong")
 	})
 
+	r.GET("/health-check", func(c *gin.Context) {
+		c.String(http.StatusOK, "ok")
+	})
+
 	r.GET("/users", func(c *gin.Context) {
 		resp := handlers.GetUsers(c)
 		c.JSON(http.StatusOK, resp)
