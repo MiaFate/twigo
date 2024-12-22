@@ -9,7 +9,7 @@ import (
 func GetUsers(ctx *gin.Context) models.ApiResponse[[]models.Usuario] {
 	var r models.ApiResponse[[]models.Usuario]
 	r.Status = 200
-	r.Message = "Listado de usuarios"
+	// r.Message = "Listado de usuarios"
 	r.Data = append(r.Data, bd.GetUsers()...)
 
 	return r

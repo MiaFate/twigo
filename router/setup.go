@@ -1,14 +1,13 @@
 package router
 
 import (
-	"context"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/miafate/twigo/handlers"
 )
 
-func SetupRouter(ctx context.Context) *gin.Engine {
+func SetupRouter() *gin.Engine {
 	// Disable Console Color
 	// gin.DisableConsoleColor()
 	r := gin.Default()
@@ -24,13 +23,23 @@ func SetupRouter(ctx context.Context) *gin.Engine {
 
 	r.GET("/users", func(c *gin.Context) {
 		resp := handlers.GetUsers(c)
-		c.JSON(http.StatusOK, resp)
+		c.PureJSON(http.StatusOK, resp.Data)
 	})
 
 	r.POST("/register", func(c *gin.Context) {
 		resp := handlers.Register(c)
 
 		c.JSON(resp.Status, resp.Message)
+	})
+
+	r.POST("/login", func(c *gin.Context) {
+		resp := handlers.Login(c)
+		c.PureJSON(resp.Status, resp.Data)
+	})
+
+	r.GET("/profile", func(c *gin.Context) {
+		resp := handlers.GetProfile(c)
+		c.PureJSON(resp.Status, resp.Data)
 	})
 
 	// Get user value
