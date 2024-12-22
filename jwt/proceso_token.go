@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	jwt "github.com/golang-jwt/jwt/v5"
+	"github.com/miafate/twigo/bd"
 	"github.com/miafate/twigo/models"
 )
 
@@ -25,7 +26,12 @@ func ProcesoToken(tk string, JWTSign string) (*models.Claim, bool, string, error
 		return miClave, nil
 	})
 	if err == nil {
-		//TODO rutina que checkea contra la bd
+		_, encontrado, _ := bd.UserExist(claims.Email)
+		if encontrado {
+			Email = claims.Email
+			IdUser = string(claims.Id.Hex())
+		}
+		return &claims, encontrado, IdUser, nil
 	}
 
 	if !token.Valid {

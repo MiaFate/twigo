@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/miafate/twigo/handlers"
+	"github.com/miafate/twigo/middlewares"
 )
 
 func SetupRouter() *gin.Engine {
@@ -37,6 +38,7 @@ func SetupRouter() *gin.Engine {
 		c.PureJSON(resp.Status, resp.Data)
 	})
 
+	r.Use(middlewares.JwtMiddleware())
 	r.GET("/profile", func(c *gin.Context) {
 		resp := handlers.GetProfile(c)
 		c.PureJSON(resp.Status, resp.Data)

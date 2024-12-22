@@ -1,13 +1,15 @@
 package handlers
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/miafate/twigo/bd"
 	"github.com/miafate/twigo/models"
 )
 
-func GetProfile(ctx *gin.Context) models.ApiResponse[any] {
-	var r models.ApiResponse[any]
+func GetProfile(ctx *gin.Context) models.ApiResponse[models.Usuario] {
+	var r models.ApiResponse[models.Usuario]
 	r.Status = 400
 
 	id := ctx.Query("id")
@@ -22,12 +24,7 @@ func GetProfile(ctx *gin.Context) models.ApiResponse[any] {
 		return r
 	}
 
-	// respJson, err := json.Marshal(perfil)
-	// if err != nil {
-	// 	r.Message = "Error al convertir el perfil a json " + err.Error()
-	// 	return r
-	// }
-
+	fmt.Println(perfil)
 	r.Status = 200
 	r.Data = perfil
 
