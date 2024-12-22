@@ -50,6 +50,11 @@ func SetupRouter() *gin.Engine {
 		c.PureJSON(resp.Status, resp)
 	})
 
+	r.POST("/post", func(c *gin.Context) {
+		resp := handlers.AddPost(c, c.MustGet("claim").(*models.Claim))
+		c.PureJSON(resp.Status, resp)
+	})
+
 	// Get user value
 	// r.GET("/user/:name", func(c *gin.Context) {
 	// 	user := c.Params.ByName("name")
