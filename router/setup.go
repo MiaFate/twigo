@@ -33,6 +33,7 @@ func SetupRouter() *gin.Engine {
 		resp := handlers.Login(c)
 		c.PureJSON(resp.Status, resp.Data)
 	})
+	r.StaticFS("/images", http.Dir("public/images"))
 
 	r.Use(middlewares.JwtMiddleware())
 	r.GET("/profile", func(c *gin.Context) {
@@ -64,6 +65,20 @@ func SetupRouter() *gin.Engine {
 		resp := handlers.DeletePost(c, c.MustGet("claim").(*models.Claim))
 		c.PureJSON(resp.Status, resp.Message)
 	})
+
+	//r.MaxMultipartMemory = 8 << 20 // 8 MiB
+	//r.Static("/", "./public")
+	upload := r.Group("/upload")
+	{
+		upload.POST("/avatar", func(c *gin.Context) {
+			resp := handlers.UploadImage(c, "A", c.MustGet("claim").(*models.Claim))
+			c.PureJSON(resp.Status, resp)
+		})
+		upload.POST("/banner", func(c *gin.Context) {
+			resp := handlers.UploadImage(c, "B", c.MustGet("claim").(*models.Claim))
+			c.PureJSON(resp.Status, resp)
+		})
+	}
 
 	// Get user value
 	// r.GET("/user/:name", func(c *gin.Context) {
