@@ -25,10 +25,10 @@ func UploadImage(ctx *gin.Context, uploadType string, claim *models.Claim) model
 	switch uploadType {
 	case "A":
 		filename = "public/images/avatars/" + userid + fileExt
-		user.Avatar = os.Getenv("DOMAIN") + os.Getenv("PORT") + "/images/avatars/" + userid + fileExt
+		user.Avatar = os.Getenv("BASEPATH") + "/images/avatars/" + userid + fileExt
 	case "B":
 		filename = "public/images/banners/" + userid + fileExt
-		user.Banner = os.Getenv("DOMAIN") + os.Getenv("PORT") + "/images/banners/" + userid + fileExt
+		user.Banner = os.Getenv("BASEPATH") + "/images/banners/" + userid + fileExt
 	}
 
 	if err := ctx.SaveUploadedFile(file, filename); err != nil {
