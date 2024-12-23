@@ -80,6 +80,17 @@ func SetupRouter() *gin.Engine {
 		})
 	}
 
+	// pending
+	// r.GET("/avatar", func(c *gin.Context) {
+	// 	resp := handlers.GetImage(c, "A", c.MustGet("claim").(*models.Claim))
+	// 	c.PureJSON(resp.Status, resp)
+	// })
+
+	// r.GET("/banner", func(c *gin.Context) {
+	// 	resp := handlers.GetImage(c, "B", c.MustGet("claim").(*models.Claim))
+	// 	c.PureJSON(resp.Status, resp)
+	// })
+
 	// Get user value
 	// r.GET("/user/:name", func(c *gin.Context) {
 	// 	user := c.Params.ByName("name")
