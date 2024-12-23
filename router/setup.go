@@ -80,6 +80,12 @@ func SetupRouter() *gin.Engine {
 		})
 	}
 
+	r.POST("/addfriend", func(c *gin.Context) {
+		resp := handlers.AddRelationship(c, c.MustGet("claim").(*models.Claim))
+		c.PureJSON(resp.Status, resp)
+
+	})
+
 	// pending
 	// r.GET("/avatar", func(c *gin.Context) {
 	// 	resp := handlers.GetImage(c, "A", c.MustGet("claim").(*models.Claim))
