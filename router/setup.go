@@ -60,6 +60,10 @@ func SetupRouter() *gin.Engine {
 		resp := handlers.GetPosts(c)
 		c.PureJSON(resp.Status, resp.Data)
 	})
+	r.GET("/friendsposts", func(c *gin.Context) {
+		resp := handlers.GetFriendsPosts(c, c.MustGet("claim").(*models.Claim))
+		c.PureJSON(resp.Status, resp)
+	})
 
 	r.DELETE("/post", func(c *gin.Context) {
 		resp := handlers.DeletePost(c, c.MustGet("claim").(*models.Claim))
