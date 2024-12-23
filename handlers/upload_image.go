@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/gin-gonic/gin"
+	"github.com/miafate/twigo/bd"
 	"github.com/miafate/twigo/models"
 )
 
@@ -36,12 +37,24 @@ func UploadImage(ctx *gin.Context, uploadType string, claim *models.Claim) model
 		return r
 	}
 
+	_, status, err := bd.UpdateUser(user, userid)
+	if err != nil {
+		r.Message = "Error al actualizar el usuario " + err.Error()
+		return r
+	}
+
+	if !status {
+		r.Message = "No se ha logrado actualizar el usuario"
+		return r
+	}
+
 	r.Status = 200
-	r.Message = "file upload"
 	switch uploadType {
 	case "A":
+		r.Message = "avatar uploaded"
 		r.Data = models.Image{Avatar: user.Avatar}
 	case "B":
+		r.Message = "banner uploaded"
 		r.Data = models.Image{Banner: user.Banner}
 	}
 
