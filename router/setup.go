@@ -86,6 +86,11 @@ func SetupRouter() *gin.Engine {
 
 	})
 
+	r.DELETE("/delfriend", func(c *gin.Context) {
+		resp := handlers.DeleteRelationship(c, c.MustGet("claim").(*models.Claim))
+		c.PureJSON(resp.Status, resp.Message)
+	})
+
 	// pending
 	// r.GET("/avatar", func(c *gin.Context) {
 	// 	resp := handlers.GetImage(c, "A", c.MustGet("claim").(*models.Claim))

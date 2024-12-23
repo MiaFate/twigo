@@ -6,13 +6,12 @@ import (
 	"github.com/miafate/twigo/models"
 )
 
-func AddRelationship(ctx *gin.Context, claim *models.Claim) models.ApiResponse[string] {
+func DeleteRelationship(ctx *gin.Context, claim *models.Claim) models.ApiResponse[string] {
 	var r models.ApiResponse[string]
-	r.Status = 400
 
 	id := ctx.Query("id")
 	if len(id) < 1 {
-		r.Message = "id is required"
+		r.Message = "id parameter is mandatory"
 		return r
 	}
 
@@ -20,17 +19,17 @@ func AddRelationship(ctx *gin.Context, claim *models.Claim) models.ApiResponse[s
 	t.UserId = claim.Id.Hex()
 	t.FriendId = id
 
-	status, err := bd.AddRelationship(t)
+	status, err := bd.DeleteRelationship(t)
 	if err != nil {
-		r.Message = "have been an error adding friend: " + err.Error()
+		r.Message = "Error trying to delete friend: " + err.Error()
 		return r
 	}
 	if !status {
-		r.Message = "have been an error adding friend :C"
+		r.Message = "Error trying to delete friend"
 		return r
 	}
 
 	r.Status = 200
-	r.Message = "Friend added"
+	r.Message = "Friend deleted successfully"
 	return r
 }
