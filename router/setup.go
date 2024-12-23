@@ -42,7 +42,7 @@ func SetupRouter() *gin.Engine {
 	})
 
 	r.GET("/users", func(c *gin.Context) {
-		resp := handlers.GetUsers(c)
+		resp := handlers.GetUsers(c, c.MustGet("claim").(*models.Claim))
 		c.PureJSON(http.StatusOK, resp.Data)
 	})
 
@@ -88,7 +88,12 @@ func SetupRouter() *gin.Engine {
 
 	r.DELETE("/delfriend", func(c *gin.Context) {
 		resp := handlers.DeleteRelationship(c, c.MustGet("claim").(*models.Claim))
-		c.PureJSON(resp.Status, resp.Message)
+		c.PureJSON(resp.Status, resp)
+	})
+
+	r.GET("/checkfriend", func(c *gin.Context) {
+		resp := handlers.GetRelationship(c, c.MustGet("claim").(*models.Claim))
+		c.PureJSON(resp.Status, resp)
 	})
 
 	// pending
