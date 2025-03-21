@@ -39,7 +39,7 @@ func AddProduct(ctx *gin.Context) models.ApiResponse[models.Product] {
 	}
 
 	r.Status = 200
-	r.Message = "post added correctly"
+	r.Message = "product added correctly"
 	r.Data = register
 
 	return r

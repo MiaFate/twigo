@@ -13,7 +13,7 @@ func AddProduct(product models.Product) (string, bool, error) {
 	col := db.Collection("products")
 
 	register := bson.M{
-		"message": product.Product,
+		"product": product.Product,
 		"date":    product.Date,
 	}
 	result, err := col.InsertOne(context.TODO(), register)

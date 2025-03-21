@@ -8,6 +8,6 @@ import (
 
 type GetProducts struct {
 	Id      primitive.ObjectID `bson:"_id" json:"_id,omitempty"`
-	Content string             `bson:"message" json:"content,omitempty"`
+	Product string             `bson:"product" json:"product,omitempty"`
 	Date    time.Time          `bson:"date" json:"date,omitempty"`
 }
