@@ -18,6 +18,10 @@ func SetupRouter() *gin.Engine {
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong")
 	})
+	r.GET("/products", func(c *gin.Context) {
+		resp := handlers.GetProducts(c)
+		c.PureJSON(resp.Status, resp.Data)
+	})
 
 	r.GET("/health-check", func(c *gin.Context) {
 		c.String(http.StatusOK, "ok")
