@@ -67,8 +67,9 @@ func SetupRouter() *gin.Engine {
 		resp := handlers.AddProductsBulk(c)
 		if resp != nil {
 			c.PureJSON(200, resp)
+		} else {
+			c.PureJSON(400, "error")
 		}
-		c.PureJSON(400, "error")
 	})
 
 	r.GET("/posts", func(c *gin.Context) {
