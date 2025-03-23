@@ -14,7 +14,6 @@ func AddProduct(product models.Product) (string, bool, error) {
 
 	register := bson.M{
 		"product": product.Product,
-		"date":    product.Date,
 	}
 	result, err := col.InsertOne(context.TODO(), register)
 	if err != nil {

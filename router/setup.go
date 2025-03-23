@@ -59,9 +59,16 @@ func SetupRouter() *gin.Engine {
 		resp := handlers.AddPost(c, c.MustGet("claim").(*models.Claim))
 		c.PureJSON(resp.Status, resp)
 	})
-	r.POST("/product", func(c *gin.Context) {
-		resp := handlers.AddProduct(c)
-		c.PureJSON(resp.Status, resp)
+	// r.POST("/product", func(c *gin.Context) {
+	// 	resp := handlers.AddProduct(c)
+	// 	c.PureJSON(resp.Status, resp)
+	// })
+	r.POST("/products", func(c *gin.Context) {
+		resp := handlers.AddProductsBulk(c)
+		if resp != nil {
+			c.PureJSON(200, resp)
+		}
+		c.PureJSON(400, "error")
 	})
 
 	r.GET("/posts", func(c *gin.Context) {
